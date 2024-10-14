@@ -13,39 +13,12 @@
                 </div>
                 <div class="right">
                     <div class="icon_actions">
-                        <i class="fa fa-home"></i>
+                        <i class="fa fa-home" ></i>
                         <gvb_theme></gvb_theme>
                         <gvb_full_screen></gvb_full_screen>
                         
                     </div>
-                    <div class="avatar">
-                        <img src="https://tse2.mm.bing.net/th/id/OIP.3y3aVa2QU0tVj_-xZ1tZegAAAA?rs=1&pid=ImgDetMain"
-                            alt="">
-                    </div>
-                    <div class="drop_menu">
-                        <a-dropdown placement="bottomRight">
-                            <a class="ant-dropdown-link" @click.prevent>
-                                七夜空间
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <template #overlay>
-                                <a-menu @click="onClick">
-                                    <a-menu-item key="user_center">
-                                        个人中心
-                                    </a-menu-item>
-                                    <a-menu-item key="my_messages">
-                                        我的消息
-                                    </a-menu-item>
-                                    <a-menu-item key="article_list">
-                                        文章列表
-                                    </a-menu-item>
-                                    <a-menu-item key="logout">
-                                        注销退出
-                                    </a-menu-item>
-                                </a-menu>
-                            </template>
-                        </a-dropdown>
-                    </div>
+                    <gvb_user_info></gvb_user_info>
                 </div>
             </header>
             <div class="tabs"></div>
@@ -62,19 +35,15 @@ import { useRouter } from 'vue-router';
 import gvb_theme from '../../components/gvb_theme.vue';
 import gvb_aside from '../../components/admin/gvb_aside.vue';
 import gvb_full_screen from '@/components/gvb_full_screen.vue';
+import gvb_user_info from '@/components/gvb_user_info.vue';
+
+const router = useRouter();
 
 
-let router = useRouter()
 
 
-function onClick({ key }) {
-    if (key == "logout") {
-        alert("退出登录")
-        return
-    }
-    router.push({ name: key })
 
-}
+
 
 
 
