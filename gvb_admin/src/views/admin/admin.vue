@@ -15,27 +15,40 @@
                     <div class="icon_actions">
                         <i class="fa fa-home" ></i>
                         <gvb_theme></gvb_theme>
-                        <gvb_full_screen></gvb_full_screen>
+                        <gvb_full_screen ></gvb_full_screen>
                         
                     </div>
-                    <gvb_user_info></gvb_user_info>
+                    <gvb_user_info :isAvatar="true"></gvb_user_info>
                 </div>
             </header>
             <div class="tabs"></div>
             <main>
-                11111111111111
+                <a-card :loading="loading">
+                    <router-view />
+                </a-card>
+                
             </main>
         </div>
     </div>
 </template>
 
 <script setup>
-
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import gvb_theme from '../../components/gvb_theme.vue';
 import gvb_aside from '../../components/admin/gvb_aside.vue';
 import gvb_full_screen from '@/components/gvb_full_screen.vue';
 import gvb_user_info from '@/components/gvb_user_info.vue';
+
+const loading = ref(true);
+
+// 页面加载完触发动
+setTimeout(() => {
+    handleClick()
+},1000)
+const handleClick = () => {
+  loading.value = !loading.value;
+};
 
 const router = useRouter();
 
@@ -116,6 +129,7 @@ const router = useRouter();
         main {
             height: calc(100vh - 90px);
             background-color: var(--order);
+            padding: 20px;
 
         }
     }
