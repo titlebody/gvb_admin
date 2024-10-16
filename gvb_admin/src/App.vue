@@ -1,5 +1,10 @@
 <script setup>
 
+import { useUserStore} from './stores/user'
+
+const user = useUserStore()
+user.loadUserInfo()
+
 </script>
 
 <template>

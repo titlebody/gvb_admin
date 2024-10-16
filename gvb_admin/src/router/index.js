@@ -6,9 +6,9 @@ const router = createRouter({
   routes: [
     {
       path: "/admin",
-      name: "admin",
       component: () => import("../views/admin/admin.vue"),
-      redirect: "/admin/home",
+      name:"admin",
+      redirect:"/admin/home",
       children: [
         {
           path:"home",
@@ -25,8 +25,6 @@ const router = createRouter({
           name:"system_config",
           component: () => import("../views/admin/system_mgr/system_list.vue")
         },
-
-
       ]
     },
     {

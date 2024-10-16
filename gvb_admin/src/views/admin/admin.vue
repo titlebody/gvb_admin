@@ -23,7 +23,7 @@
             </header>
             <div class="tabs"></div>
             <main>
-                <a-card :loading="loading">
+                <a-card>
                     <router-view />
                 </a-card>
                 
@@ -40,15 +40,6 @@ import gvb_aside from '../../components/admin/gvb_aside.vue';
 import gvb_full_screen from '@/components/gvb_full_screen.vue';
 import gvb_user_info from '@/components/gvb_user_info.vue';
 
-const loading = ref(true);
-
-// 页面加载完触发动
-setTimeout(() => {
-    handleClick()
-},1000)
-const handleClick = () => {
-  loading.value = !loading.value;
-};
 
 const router = useRouter();
 
@@ -72,6 +63,8 @@ const router = useRouter();
 
     .main {
         width: calc(100% - 240px);
+        overflow-y: auto;
+        background-color: var(--order);
 
         header {
             height: 60px;
@@ -127,9 +120,10 @@ const router = useRouter();
         }
 
         main {
-            height: calc(100vh - 90px);
+
             background-color: var(--order);
             padding: 20px;
+        
 
         }
     }

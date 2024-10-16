@@ -23,6 +23,9 @@
                         <a-menu-item key="logout">
                             注销退出
                         </a-menu-item>
+                        <a-menu-item key="login">
+                            用户登录
+                        </a-menu-item>
                     </a-menu>
                 </template>
             </a-dropdown>
@@ -33,8 +36,9 @@
 
 <script setup>
 
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 let router = useRouter()
+let route = useRoute()
 
 let props = defineProps({
     // 是否显示头像
@@ -47,6 +51,15 @@ let props = defineProps({
 function onClick({ key }) {
     if (key == "logout") {
         alert("退出登录")
+        return
+    }
+    if(key == "login"){
+        router.push({
+            name:"login",
+            query:{
+                redirect_url:route.path
+            }
+        })
         return
     }
     router.push({ name: key })
