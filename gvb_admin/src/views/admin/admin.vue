@@ -33,16 +33,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+
+
 import gvb_theme from '../../components/gvb_theme.vue';
 import gvb_aside from '../../components/admin/gvb_aside.vue';
 import gvb_full_screen from '@/components/gvb_full_screen.vue';
 import gvb_user_info from '@/components/gvb_user_info.vue';
-
-
-const router = useRouter();
-
 
 
 
