@@ -1,11 +1,11 @@
 <template>
+  <a-card>
     <div>系统配置</div>
-  </template>
+  </a-card>
+</template>
   
   <script setup>
-  
-  </script>
+</script>
   
   <style lang="scss">
-  
-  </style>
+</style>

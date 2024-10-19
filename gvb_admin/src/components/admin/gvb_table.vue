@@ -3,19 +3,17 @@
     <div class="gvb_search">
       <a-input-search
         v-model:value.trim="page.key"
-        placeholder="请输入用户名"
+        :placeholder="props.like_title"
         style="width: 200px"
         @search="onSearch"
       />
     </div>
     <div class="gvb_actions">
-      <slot name="add">
-        
-      </slot>
+      <slot name="add"> </slot>
       <a-button
         class="gvb_btn del"
         danger
-        v-if="data.selectedRowKeys.length > 0&&isDels"
+        v-if="data.selectedRowKeys.length > 0 && isDels"
         @click="deleteUser"
         >批量删除</a-button
       >
@@ -28,6 +26,7 @@
           :columns="props.columns"
           :pagination="false"
           rowKey="id"
+          size="middle"
         >
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'avatar_id'">
@@ -36,9 +35,9 @@
             <template v-if="column.key === 'created_at'">
               {{ formatTime(record.created_at) }}
             </template>
+            <slot name="cell" v-bind="{column,record}"></slot>
             <template v-if="column.key === 'action'">
-              <slot name="edit" :record="record">
-              </slot>
+              <slot name="edit" :record="record"> </slot>
               <slot name="del" :record="record">
                 <a-popconfirm
                   title="是否删除?"
@@ -78,7 +77,7 @@ import { reactive, ref } from "vue";
 import { formatTime } from "@/utils/date";
 
 import { message } from "ant-design-vue";
-import { baseListApi } from "@/api/base_api";
+import { baseListApi,baseDeleteApi } from "@/api/base_api";
 let emit = defineEmits(["delete"]);
 
 const props = defineProps({
@@ -90,17 +89,29 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  isDel:{
-    type:Boolean,
-    default:false
+  isDel: {
+    type: Boolean,
+    default: false,
   },
-  isDels:{
-    type:Boolean,
-    default:false
+  isDels: {
+    type: Boolean,
+    default: false,
+  },
+  like_title: {
+    type: String,
+    default: "",
+  },
+  page_size:{
+    type: Number,
+    default: 6
+  },
+  defaultDelFun:{
+    type: Boolean,
+    default: false
   }
+  
 });
 // 搜索框
-let searchValue = ref("");
 
 let page = reactive({
   page: 1,
@@ -119,7 +130,7 @@ const data = reactive({
 
 // 获取用户列表
 let getdata = async () => {
-  data.spinning = true;
+  data.spinning = true
   await baseListApi(props.baseUrl, page).then((res) => {
     data.list = res.data.list;
     data.count = res.data.count;
@@ -138,22 +149,41 @@ const rowSelection = {
 // 搜索
 let onSearch = async () => {
   data.spinning = true;
-  page.page=1
+  page.page = 1;
   getdata();
   data.spinning = false;
 };
 // 批量删除
 let deleteUser = async () => {
+  if(props.defaultDelFun){
+     let res=await baseDeleteApi(props.baseUrl, data.selectedRowKeys)
+    if(res.code){
+      message.error(res.msg);
+      return;
+    }
+    getdata()
+    message.success(res.msg);
+  }
   emit("delete", data.selectedRowKeys);
+  data.selectedRowKeys=[]
 };
 // 删除单个
 let deluser = async (id) => {
+  if(props.defaultDelFun){
+    let res=await baseDeleteApi(props.baseUrl, [id])
+    if(res.code){
+      message.error(res.msg);
+      return;
+    }
+    getdata()
+    message.success(res.msg);
+  }
   emit("delete", [id]);
 };
 
 // 分页
 let onChange = () => {
-  if (searchValue.value) {
+  if (page.key) {
     onSearch();
     return;
   }
@@ -168,7 +198,6 @@ const confirm = (id) => {
 const cancel = () => {
   message.error("取消删除！");
 };
-
 
 defineExpose({
   getdata,
@@ -192,9 +221,8 @@ defineExpose({
 
   .gvb_table {
     margin-bottom: 10px;
-
     .gvb_btn.update {
-      margin-right: 4px;
+      margin-right: 10px;
     }
   }
 

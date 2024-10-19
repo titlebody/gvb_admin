@@ -1,89 +1,92 @@
 <template>
-  <div aria-hidden="true">
-    <a-modal
-      v-model:open="data.open"
-      title="添加用户"
-      @ok="handleOk"
-      @Cancel="handCancel"
-    >
-      <a-form
-        :model="formState"
-        name="basic"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 16 }"
-        autocomplete="off"
-        :rules="rules"
-        ref="refForm"
+  <a-card>
+    <div aria-hidden="true">
+      <a-modal
+        v-model:open="data.open"
+        title="添加用户"
+        @ok="handleOk"
+        @Cancel="handCancel"
       >
-        <a-form-item label="用户名" name="user_name">
-          <a-input v-model:value="formState.user_name" placeholder="用户名" />
-        </a-form-item>
-        <a-form-item label="昵称" name="nick_name">
-          <a-input v-model:value="formState.nick_name" placeholder="昵称" />
-        </a-form-item>
-        <a-form-item label="密码" name="password">
-          <a-input-password
-            v-model:value="formState.password"
-            placeholder="密码"
-          />
-        </a-form-item>
-        <a-form-item label="确认密码" name="re_password">
-          <a-input-password
-            v-model:value="formState.re_password"
-            placeholder="确认密码"
-          />
-        </a-form-item>
-        <a-form-item label="权限" name="role">
-          <a-select v-model:value="formState.role" placeholder="请选择权限">
-            <a-select-option value="1">管理员</a-select-option>
-            <a-select-option value="2">用户</a-select-option>
-            <a-select-option value="3">游客</a-select-option>
-          </a-select>
-        </a-form-item>
-      </a-form>
-    </a-modal>
-    <a-modal v-model:open="data.upopen" title="编辑用户" @ok="updateOk">
-      <a-form
-        :model="upFormState"
-        name="basic"
-        :label-col="{ span: 6 }"
-        :wrapper-col="{ span: 16 }"
-        autocomplete="off"
-        :rules="uprules"
-        ref="refForm"
-      >
-        <a-form-item label="昵称" name="nick_name">
-          <a-input v-model:value="upFormState.nick_name" placeholder="昵称" />
-        </a-form-item>
-        <a-form-item label="权限" name="role">
-          <a-select v-model:value="upFormState.role" placeholder="请选择权限">
-            <a-select-option value="1">管理员</a-select-option>
-            <a-select-option value="2">用户</a-select-option>
-            <a-select-option value="3">游客</a-select-option>
-          </a-select>
-        </a-form-item>
-      </a-form>
-    </a-modal>
-  </div>
+        <a-form
+          :model="formState"
+          name="basic"
+          :label-col="{ span: 6 }"
+          :wrapper-col="{ span: 16 }"
+          autocomplete="off"
+          :rules="rules"
+          ref="refForm"
+        >
+          <a-form-item label="用户名" name="user_name">
+            <a-input v-model:value="formState.user_name" placeholder="用户名" />
+          </a-form-item>
+          <a-form-item label="昵称" name="nick_name">
+            <a-input v-model:value="formState.nick_name" placeholder="昵称" />
+          </a-form-item>
+          <a-form-item label="密码" name="password">
+            <a-input-password
+              v-model:value="formState.password"
+              placeholder="密码"
+            />
+          </a-form-item>
+          <a-form-item label="确认密码" name="re_password">
+            <a-input-password
+              v-model:value="formState.re_password"
+              placeholder="确认密码"
+            />
+          </a-form-item>
+          <a-form-item label="权限" name="role">
+            <a-select v-model:value="formState.role" placeholder="请选择权限">
+              <a-select-option value="1">管理员</a-select-option>
+              <a-select-option value="2">用户</a-select-option>
+              <a-select-option value="3">游客</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
+      </a-modal>
+      <a-modal v-model:open="data.upopen" title="编辑用户" @ok="updateOk">
+        <a-form
+          :model="upFormState"
+          name="basic"
+          :label-col="{ span: 6 }"
+          :wrapper-col="{ span: 16 }"
+          autocomplete="off"
+          :rules="uprules"
+          ref="refForm"
+        >
+          <a-form-item label="昵称" name="nick_name">
+            <a-input v-model:value="upFormState.nick_name" placeholder="昵称" />
+          </a-form-item>
+          <a-form-item label="权限" name="role">
+            <a-select v-model:value="upFormState.role" placeholder="请选择权限">
+              <a-select-option value="1">管理员</a-select-option>
+              <a-select-option value="2">用户</a-select-option>
+              <a-select-option value="3">游客</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
+      </a-modal>
+    </div>
 
-  <gvb_table
-    ref="gvbTable"
-    @delete="userDel"
-    :columns="data.columns"
-    :list="data.list"
-    base-url="user_list"
-    isDel
-    isDels
-  >
-    <template #add>
-      <a-button type="primary" @click="showModal">创建用户</a-button>
-    </template>
-    <template #edit="{ record }">
-      <a-button class="gvb_btn update" type="primary" @click="upModal(record)"
-        >编辑</a-button
-      >
-    </template>
-  </gvb_table>
+    <gvb_table
+      ref="gvbTable"
+      @delete="userDel"
+      :columns="data.columns"
+      :list="data.list"
+      base-url="user_list"
+      like_title="搜索昵称"
+      isDel
+      isDels
+    >
+      <template #add>
+        <a-button type="primary" @click="showModal">创建用户</a-button>
+      </template>
+      <template #edit="{ record }">
+        <a-button class="gvb_btn update" type="primary" @click="upModal(record)"
+          >编辑</a-button
+        >
+      </template>
+    </gvb_table>
+  </a-card>
 </template>
   
 <script setup>
@@ -251,7 +254,7 @@ const upModal = (record) => {
 // 删除单个用户
 function userDel(id) {
   userDelete(id).then((res) => {
-    console.log(res)
+    message.success(res.msg);
     gvbTable.value.getdata();
   });
 }

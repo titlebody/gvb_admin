@@ -20,9 +20,11 @@ export default ({ mode }) => {
       proxy: {
         '/uploads': {
           target: 'http://47.121.115.146:5001',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/uploads/, '')
+        },
+        '/api':{
+          target: "http://47.121.115.146:5001",
         }
+        
       }
     }
   })
