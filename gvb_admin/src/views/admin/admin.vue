@@ -5,11 +5,7 @@
     <div class="main">
       <header>
         <div class="left">
-          <a-breadcrumb>
-            <a-breadcrumb-item>首页</a-breadcrumb-item>
-            <a-breadcrumb-item><a href="#">个人中心</a></a-breadcrumb-item>
-            <a-breadcrumb-item>用户列表</a-breadcrumb-item>
-          </a-breadcrumb>
+          <gvb_breadcrumb></gvb_breadcrumb>
         </div>
         <div class="right">
           <div class="icon_actions">
@@ -41,6 +37,7 @@ import gvb_full_screen from "@/components/gvb_full_screen.vue";
 import gvb_user_info from "@/components/gvb_user_info.vue";
 import gvb_tabs from "@/components/admin/gvb_tabs.vue";
 import { useStore } from "@/stores/store";
+import gvb_breadcrumb from "@/components/admin/gvb_breadcrumb.vue";
 
 const store = useStore();
 store.getTabs()

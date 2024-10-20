@@ -1,30 +1,18 @@
 <template>
     <div class="gvb_user_info">
         <div class="avatar" v-if="props.isAvatar">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.3y3aVa2QU0tVj_-xZ1tZegAAAA?rs=1&pid=ImgDetMain" alt="">
+            <img :src="userStore.userInfo.avatar">
         </div>
         <div class="drop_menu">
             <a-dropdown placement="bottomRight">
                 <a class="ant-dropdown-link" @click.prevent>
-                    七夜空间
+                    {{ userStore.userInfo.nick_name }}
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <template #overlay>
                     <a-menu @click="onClick">
-                        <a-menu-item key="user_center">
-                            个人中心
-                        </a-menu-item>
-                        <a-menu-item key="my_messages">
-                            我的消息
-                        </a-menu-item>
-                        <a-menu-item key="article_list">
-                            文章列表
-                        </a-menu-item>
-                        <a-menu-item key="logout">
-                            注销退出
-                        </a-menu-item>
-                        <a-menu-item key="login">
-                            用户登录
+                        <a-menu-item  v-for="(item) in menuList" :key="item.key">
+                            {{ item.title }}
                         </a-menu-item>
                     </a-menu>
                 </template>
@@ -35,10 +23,15 @@
 </template>
 
 <script setup>
-
+import { reactive } from 'vue';
 import { useRouter,useRoute } from 'vue-router';
+import { useUserStore } from '@/stores/user'
+
+
 let router = useRouter()
 let route = useRoute()
+let userStore = useUserStore()
+
 
 let props = defineProps({
     // 是否显示头像
@@ -65,6 +58,17 @@ function onClick({ key }) {
     router.push({ name: key })
 
 }
+
+const menuList=reactive([
+    {key:"user_center",title:"个人信息"},
+    {key:"user_list",title:"用户管理"},
+    {key:"artice_center",title:"文章管理"},
+    {key:"image_list",title:"图片管理"},
+    {key:"comment_center",title:"评论管理"},
+    {key:"system_config",title:"系统配置"},
+    {key:"login",title:"登录"},
+    {key:"logout",title:"退出"}
+])
 </script>
 
 <style>

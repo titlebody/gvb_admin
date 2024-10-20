@@ -30,6 +30,7 @@ import {
   UserOutlined,
   SettingOutlined,
   FileImageOutlined,
+  UsergroupDeleteOutlined
 } from "@ant-design/icons-vue";
 let route = useRoute();
 
@@ -46,8 +47,22 @@ const items = reactive([
     path: "home",
   },
   {
-    key: "sub1",
+    key: "sub4",
     icon: () => h(UserOutlined),
+    label: "个人中心",
+    title: "个人中心",
+    children: [
+      {
+        key: "user_center",
+        label: "个人信息",
+        title: "个人信息",
+        path: "user_center",
+      },
+    ],
+  },
+  {
+    key: "sub1",
+    icon: () => h(UsergroupDeleteOutlined),
     label: "用户管理",
     title: "用户管理",
     children: [
@@ -62,14 +77,32 @@ const items = reactive([
   {
     key: "sub3",
     icon: () => h(FileImageOutlined),
-    label: "图片管理",
-    title: "图片管理",
+    label: "文图管理",
+    title: "文图管理",
     children: [
       {
+        key: "artice_add",
+        label: "添加文章",
+        title: "添加文章",
+        path: "artice_add",
+      },
+      {
+        key: "artice_center",
+        label: "文章管理",
+        title: "文章管理",
+        path: "artice_center",
+      },
+      {
         key: "image_list",
-        label: "图片列表",
-        title: "图片列表",
+        label: "图片管理",
+        title: "图片管理",
         path: "image_list",
+      },
+      {
+        key: "comment_center",
+        label: "评论管理",
+        title: "评论管理",
+        path: "comment_center",
       },
     ],
   },
