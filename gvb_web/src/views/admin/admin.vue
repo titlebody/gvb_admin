@@ -8,7 +8,7 @@
           <gvb_breadcrumb></gvb_breadcrumb>
         </div>
         <div class="right">
-          <div class="icon_actions">
+          <div class="icon_actions flex justify-center items-center">
             <router-link :to="{name:'index'}"><i class="fa fa-home"></i></router-link>
             <gvb_theme></gvb_theme>
             <gvb_full_screen></gvb_full_screen>

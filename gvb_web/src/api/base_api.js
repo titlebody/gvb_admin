@@ -2,9 +2,6 @@ import http from "./request";
 
 
 export function baseListApi(url, params) {
-    
-
-    
     return http.get(url, { params })
 }
 

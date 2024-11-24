@@ -1,16 +1,24 @@
-:root{
+:root {
     --bg: #ffffff;
-    --textColor:#0a0a0a;
-    --order:#f0eeee;
-    --active:#629ad1;
-    --bodyBg:#f0eeee;
+    --textColor: #0a0a0a;
+    --order: #f0eeee;
+    --active: #629ad1;
+    --bodyBg: #f0eeee;
     --card_bg: #ffffff;
+    --wave-color-1: rgba(255, 255, 255, 0.7);
+    --wave-color-2: rgba(255, 255, 255, 0.5);
+    --wave-color-3: rgba(255, 255, 255, 0.3);
+    --wave-color-4: #fff;
 }
 
-.dark{
+.dark {
     --bg: #434141;
-    --textColor:rgb(255, 255, 255);
-    --order:#4b4b4b;
-    --bodyBg:#000000;
+    --textColor: rgb(255, 255, 255);
+    --order: #4b4b4b;
+    --bodyBg: #000000;
     --card_bg: #434141;
+    --wave-color-1: rgba(0, 0, 0, 0.7);
+    --wave-color-2: rgba(0, 0, 0, 0.5);
+    --wave-color-3: rgba(0, 0, 0, 0.3);
+    --wave-color-4: #000;
 }

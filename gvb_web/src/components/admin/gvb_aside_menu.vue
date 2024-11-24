@@ -104,6 +104,12 @@ const items = reactive([
         title: "评论管理",
         path: "comment_center",
       },
+      {
+        key: "adverts_list",
+        label: "广告管理",
+        title: "广告管理",
+        path: "adverts_list",
+      },
     ],
   },
   {

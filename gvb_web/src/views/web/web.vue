@@ -1,10 +1,23 @@
 <template>
     <router-view></router-view>
+    <gvb_footer></gvb_footer>
+    <!-- 流星雨 最低层 可点击图层下的元素 -->
+    <transition name="fade"  v-if="isShowMeteor">
+      <MeteorShower class="fixed top-0 left-0 w-full h-full z-50 pointer-events-none"></MeteorShower>
+    </transition>
+    
 </template>
 
 <script setup>
 import { useMenuStore } from '@/stores/menus';
-
+import gvb_footer from "@/components/web/gvb_footer.vue";
+import MeteorShower from "@/components/MeteorShower.vue";
+import {useAppStore} from "@/stores/app";
+import {computed} from "vue";
+const appStore = useAppStore();
+let isShowMeteor = computed(()=>{
+  return appStore.darkMode==='dark'
+})
 
 
 // 获取菜单
@@ -13,17 +26,9 @@ menuStore.initMenuNameList();
 </script>
 
 <style lang="scss">
-.gvb_center {
-  width: 100%;
-  min-height: 1000px;
-  display: flex;
-  justify-content: center;
-  .web_conter {
-    width: 1200px;
-    height: 100px;
-    margin-top: 20px;
-  }
-}
+
+
+
 body{
   background-color: var(--bodyBg) !important;
   position: relative;

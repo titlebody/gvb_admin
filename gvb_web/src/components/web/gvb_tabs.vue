@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-	<a-card title="标签云" style="width: 430px">
+	<a-card title="标签云" style="width: 430px" class="mt-3">
 		<div id="wordCloud" style="height: 100px;"></div>
 	</a-card>
 	
@@ -9,6 +9,7 @@
 <script>
 import * as echarts from 'echarts/core';
 import 'echarts-wordcloud';
+
 export default {
 	data() {
 		return {
@@ -31,7 +32,7 @@ export default {
 					text: '',
 					x: "center"
 				},
-				backgroundColor: "#fff",
+				backgroundColor: "rgba(255, 255, 255, 0.1)",
 				// tooltip: {
 				//   pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
 				// },
@@ -90,5 +91,6 @@ export default {
 }
  
 </script>
-<style lang='less' scoped>
+<style lang='scss' scoped>
+
 </style>

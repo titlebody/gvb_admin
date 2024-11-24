@@ -11,17 +11,25 @@
       <div class="web_conter">
         <div class="web_left">
           <gvb_hot isShowExtra isIndex></gvb_hot>
-          <a-card title="文章发布" style="margin-top: 20px;">
-            <ActivityCalendar :data="data"></ActivityCalendar>
+          <a-card title="文章发布" style="margin-top: 20px">
+            <ActivityCalendar
+              :data="data"
+              backgroundColor="rgba(255, 255, 255, 0.2)"
+              fontColor="#777777"
+            ></ActivityCalendar>
           </a-card>
+          <web_article_list></web_article_list>
         </div>
         <div class="web_right">
-          <gvb_tabs style="height: 200px;"></gvb_tabs>
-          <gvb_siteCard></gvb_siteCard>
+          <introduced></introduced>
+          <gvb_adverts></gvb_adverts>
+          <gvb_weather></gvb_weather>
+          <gvb_tabs style="height: 200px"></gvb_tabs>
         </div>
       </div>
     </div>
-    <div class="gvb_footer"></div>
+    <div class="gvb_footer">
+    </div>
   </div>
 </template>
 
@@ -30,22 +38,36 @@ import gvb_nav from "@/components/web/gvb_nav.vue";
 import gvb_banner from "@/components/web/gvb_banner.vue";
 import gvb_hot from "@/components/web/gvb_hot.vue";
 import gvb_tabs from "@/components/web/gvb_tabs.vue";
-import gvb_siteCard from "@/components/web/gvb_siteCard.vue";
+import introduced from "@/components/introduced.vue";
+import gvb_weather from "@/components/gvb_weather.vue";
+import web_article_list from "@/components/web/web_article_list.vue";
+import gvb_adverts from "@/components/web/gvb_adverts.vue";
+
+
 import { ref } from "vue";
 
-let data = ref([{ date: "2024-10-28", count: 1 },{ date: "2024-10-29", count: 5 }]);
+let data = ref([
+  { date: "2024-10-28", count: 1 },
+  { date: "2024-10-29", count: 5 },
+]);
 </script>
 
 <style lang="scss">
 .index_view {
   .gvb_center {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
     .web_conter {
+      width: 1200px;
+      margin-top: 20px;
       display: flex;
       justify-content: space-between;
       .web_left {
         width: 750px;
       }
-      .web_right{
+      .web_right {
         width: 430px;
       }
     }

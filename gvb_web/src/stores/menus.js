@@ -14,7 +14,8 @@ export const useMenuStore = defineStore('menu', () => {
 
     function initMenuNameList(){
         let locMenu=JSON.parse(localStorage.getItem("menu"))
-        if(!locMenu.menuNameList){
+        if(!locMenu){
+            console.log("没有菜单数据")
             loadMenuNameList()
             return
         }

@@ -1,36 +1,45 @@
 <script setup>
+import { useUserStore } from "./stores/user";
+import APlayer from "@/components/APlayer.vue";
+import { useAppStore } from "@/stores/app.js";
+import { useStore } from "./stores/store";
 
-import { useUserStore} from './stores/user'
 
-const user = useUserStore()
-user.loadUserInfo()
+const app = useAppStore();
 
+const user = useUserStore();
+const store = useStore();
+
+store.loadTheme()
+
+user.loadUserInfo();
 </script>
 
 <template>
+<weather></weather>
   <router-view></router-view>
-
+  <a-config-provider :theme="app.themeConfig">
+  </a-config-provider>
+  <APlayer></APlayer>
 </template>
 
 <style lang="scss">
-@import 'assets/css/iconfont.css';
-@import './assets/css/theme.css';
-@import 'font-awesome/css/font-awesome.min.css';
+@import "assets/css/iconfont.css";
+@import "./assets/css/theme.css";
+@import "font-awesome/css/font-awesome.min.css";
+@import "./assets/css/style.css";
 
-*{
-  padding:0;
-  margin:0;
+* {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
 :root {
-  --active:#2184fc;
-  --text:#555;
+  --active: #2184fc;
+  --text: #555;
 }
-a{
+a {
   text-decoration: none;
 }
-
-
-
 </style>

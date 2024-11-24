@@ -95,6 +95,14 @@ const router = createRouter({
                 title: "评论管理"
               }
             },
+            {
+              path: "adverts_list",
+              name: "adverts_list",
+              component: () => import("../views/admin/adverts_mgr/adverts_list.vue"),
+              meta: {
+                title: "广告管理"
+              }
+            },
           ]
         },
         {
@@ -135,6 +143,11 @@ const router = createRouter({
           path:'news',
           name:"news",
           component:()=>import("../views/web/news_view.vue")
+        },
+        {
+          path:'article/:id',
+          name:"article",
+          component:()=>import("../views/web/article_item.vue")
         }
       ]
     },
@@ -143,28 +156,29 @@ const router = createRouter({
 })
 
 
-// const whiteList = ['/login', '/']; // 不需要登录即可访问的路径
+const whiteList = ['/login', '/', '/article/:id','/news']; // 不需要登录即可访问的路径
 
-// router.beforeEach((to, from, next) => {
-//   NProgress.start();  // 开始进度条
+router.beforeEach((to, from, next) => {
+  NProgress.start();  // 开始进度条
 
-//   // 判断是否登录
-//   const token = localStorage.getItem('token');
+  // 判断是否登录
+  const token = localStorage.getItem('token');
 
-//   if (whiteList.includes(to.path)) {
-//     // 如果目标路径是登录页面，直接放行
-//     next();
-//   } else if (!token) {
-//     // 如果没有 token 且目标路径不是登录页面，重定向到登录页面
-//     message.warn("用户失效，请重新登录");
-//     next('/login');
-//   } else {
-//     // 如果有 token，继续导航
-//     next();
-//   }
-// });
-// router.afterEach((to, from, next) => {
-//   NProgress.done()  //完成进度条
-// })
+  if (whiteList.includes(to.path) || to.matched.some(record => record.path === '/article/:id')) {
+    // 如果目标路径是登录页面或文章详情页，直接放行
+    next();
+  } else if (!token) {
+    // 如果没有 token 且目标路径不是登录页面，重定向到登录页面
+    message.warn("用户失效，请重新登录");
+    next('/login');
+  } else {
+    // 如果有 token，继续导航
+    next();
+  }
+});
 
-export default router
+router.afterEach((to, from, next) => {
+  NProgress.done();  // 完成进度条
+});
+
+export default router;

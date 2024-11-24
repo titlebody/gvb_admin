@@ -1,5 +1,5 @@
 <template>
-  <a-card title="今日热搜" style="width: 750px" :loading="hotStore.hotLoading" class="web_card">
+  <a-card title="今日热搜" style="width: 100%"  :loading="hotStore.hotLoading" class="web_card">
     <template #extra v-if="props.isShowExtra"
       ><a href="/news">查看更多</a></template
     >
@@ -8,6 +8,7 @@
         class="web_hot_list"
         v-for="(item, index) in hotStore.hotList"
         :key="item"
+        
       >
         <span class="web_index">{{ index + 1 }}.</span>
         <a :href="item.url" class="web_title">{{ item.title }}</a>
@@ -31,7 +32,7 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+
 import { useHotStore } from "@/stores/hot";
 
 // 获取最新热榜
@@ -64,7 +65,6 @@ hotStore.loadHotList();
   }
 }
 .web_card{
-    background-color: var(--card_bg) !important;
     border: var(--order) 1px solid;
     color: var(--textColor) !important;
 }

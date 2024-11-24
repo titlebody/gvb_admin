@@ -28,14 +28,65 @@
           rowKey="id"
           size="middle"
         >
-          <template #bodyCell="{ column, record }">
+          <template #bodyCell="{ column, record, index }">
+            <template v-if="column.dataIndex === 'index'">
+              {{ index + 1 }}
+            </template>
             <template v-if="column.key === 'avatar_id'">
               <a-avatar :size="44" :src="record.avatar_id" />
+            </template>
+            <template v-if="column.key === 'images'">
+              <!-- 判断record.path是否为http开头 -->
+              <template v-if="record.images.indexOf('http') !== -1">
+                <img
+                  :src="record.images"
+                  style="border-radius: 10px; width:60px"
+                />
+              </template>
+              <template v-else>
+                <img
+                  :src="'/' + record.images"
+                  style="border-radius: 10px; width:60px"
+                />
+              </template>
+            </template>
+            <template v-if="column.key==='is_show'">
+              <slot name="is_show" :record="record"></slot>
+            </template>
+            <template v-if="column.key === 'banner_path'">
+              <!-- 判断record.path是否为http开头 -->
+              <template v-if="record.banner_path.indexOf('http') !== -1">
+                <img
+                  :src="record.banner_path"
+                  style="border-radius: 10px; width:60px"
+                />
+              </template>
+              <template v-else>
+                <img
+                  :src="'/' + record.banner_path"
+                  style="border-radius: 10px; width:60px"
+                />
+              </template>
             </template>
             <template v-if="column.key === 'created_at'">
               {{ formatTime(record.created_at) }}
             </template>
-            <slot name="cell" v-bind="{column,record}"></slot>
+            <template v-if="column.key === 'tags'">
+              <a-tag
+                :bordered="false"
+                v-for="tag in record.tags"
+                :key="tag.id"
+                :color="
+                  tag === 'loser'
+                    ? 'volcano'
+                    : tag.length > 5
+                    ? 'geekblue'
+                    : 'green'
+                "
+                >{{ tag }}</a-tag
+              >
+            </template>
+            <slot name="cell" v-bind="{ column, record }"></slot>
             <template v-if="column.key === 'action'">
               <slot name="edit" :record="record"> </slot>
               <slot name="del" :record="record">
@@ -51,6 +102,7 @@
                     class="gvb_btn del"
                     danger
                     v-if="data.selectedRowKeys.length <= 1"
+                    type="primary"
                     >删除</a-button
                   >
                 </a-popconfirm>
@@ -73,11 +125,11 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import { formatTime } from "@/utils/date";
 
 import { message } from "ant-design-vue";
-import { baseListApi,baseDeleteApi } from "@/api/base_api";
+import { baseListApi, baseDeleteApi } from "@/api/base_api";
 let emit = defineEmits(["delete"]);
 
 const props = defineProps({
@@ -101,15 +153,14 @@ const props = defineProps({
     type: String,
     default: "",
   },
-  page_size:{
+  page_size: {
     type: Number,
-    default: 6
+    default: 6,
   },
-  defaultDelFun:{
+  defaultDelFun: {
     type: Boolean,
-    default: false
-  }
-  
+    default: false,
+  },
 });
 // 搜索框
 
@@ -130,7 +181,7 @@ const data = reactive({
 
 // 获取用户列表
 let getdata = async () => {
-  data.spinning = true
+  data.spinning = true;
   await baseListApi(props.baseUrl, page).then((res) => {
     data.list = res.data.list;
     data.count = res.data.count;
@@ -155,27 +206,28 @@ let onSearch = async () => {
 };
 // 批量删除
 let deleteUser = async () => {
-  if(props.defaultDelFun){
-     let res=await baseDeleteApi(props.baseUrl, data.selectedRowKeys)
-    if(res.code){
+  if (props.defaultDelFun) {
+    let res = await baseDeleteApi(props.baseUrl, data.selectedRowKeys);
+    if (res.code) {
       message.error(res.msg);
       return;
     }
-    getdata()
+    getdata();
     message.success(res.msg);
   }
   emit("delete", data.selectedRowKeys);
-  data.selectedRowKeys=[]
+  data.selectedRowKeys = [];
 };
 // 删除单个
 let deluser = async (id) => {
-  if(props.defaultDelFun){
-    let res=await baseDeleteApi(props.baseUrl, [id])
-    if(res.code){
+  console.log(props.defaultDelFun,props.baseUrl)
+  if (props.defaultDelFun) {
+    let res = await baseDeleteApi(props.baseUrl, [id]);
+    if (res.code) {
       message.error(res.msg);
       return;
     }
-    getdata()
+    getdata();
     message.success(res.msg);
   }
   emit("delete", [id]);
@@ -202,6 +254,8 @@ const cancel = () => {
 defineExpose({
   getdata,
 });
+
+
 </script>
 
 <style lang="scss">

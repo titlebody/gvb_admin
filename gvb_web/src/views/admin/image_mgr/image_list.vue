@@ -38,8 +38,7 @@
             <img
               :src="'/' + updateState.path"
               alt=""
-              height="80"
-              style="border-radius: 10px"
+              style="border-radius: 10px; width: 200px"
             />
           </a-form-item>
         </a-form>
@@ -48,7 +47,6 @@
 
     <gvb_table
       ref="gvbTable"
-      @delete="Del"
       :columns="data.columns"
       :list="data.list"
       like_title="请输入图片名称"
@@ -70,10 +68,16 @@
       </template>
       <template #cell="{ column, record }">
         <template v-if="column.key === 'path'">
-          <img
-            :src="'/' + record.path"
-            style="border-radius: 10px;width: 120px;"
-          />
+          <!-- 判断record.path是否为http开头 -->
+          <template v-if="record.path.indexOf('http') !== -1">
+            <img :src="record.path" style="border-radius: 10px; width: 100px" />
+          </template>
+          <template v-else>
+            <img
+              :src="'/' + record.path"
+              style="border-radius: 10px; width: 100px"
+            />
+          </template>
         </template>
       </template>
     </gvb_table>
@@ -108,11 +112,6 @@ const updateState = reactive({
 });
 // 接收子组件抛出的方法
 let gvbTable = ref(null);
-
-// 删除图片
-function Del(id_list) {
-  console.log(id_list);
-}
 
 // 提交添加
 function addOk() {

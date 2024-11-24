@@ -1,5 +1,5 @@
 <template>
-    <a-card title="网站信息" style="margin-top: 20px;">
+    <a-card title="网站信息" class="mt-3">
         <div>发布时间:2024年10月29日</div>
         <div>网站程序:Gin+Vue3</div>
         <div>运行时间:2024年10月29日</div>

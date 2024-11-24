@@ -29,12 +29,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup >
 import gvb_theme from "@/components/gvb_theme.vue";
 import gvb_user_info from "@/components/gvb_user_info.vue";
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
 import { useMenuStore } from "@/stores/menus";
+
 
 let menuStore = useMenuStore();
 
@@ -46,10 +47,13 @@ async function gvb_nav_init() {
   if (props.isShow) {
     await window.addEventListener("scroll", function () {
       let scrollTop = document.documentElement.scrollTop;
-      if (scrollTop > 200) {
-        document.querySelector(".gvb_navs").classList.add("web_nav_show");
-      } else {
-        document.querySelector(".gvb_navs").classList.remove("web_nav_show");
+      let gvbnavs = document.querySelector(".gvb_navs");
+      if (gvbnavs) {
+        if (scrollTop > 200) {
+          document.querySelector(".gvb_navs").classList.add("web_nav_show");
+        } else {
+          document.querySelector(".gvb_navs").classList.remove("web_nav_show");
+        }
       }
     });
   } else {

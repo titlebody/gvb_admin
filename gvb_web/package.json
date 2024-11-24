@@ -14,10 +14,14 @@
     "axios": "^1.7.7",
     "echarts": "^5.5.1",
     "echarts-wordcloud": "^2.1.0",
+    "element-plus": "^2.8.6",
     "font-awesome": "^4.7.0",
+    "gsap": "^3.12.5",
+    "md-editor-v3": "^4.21.2",
     "nprogress": "^0.2.0",
     "pinia": "^2.2.4",
     "pinia-plugin-persistedstate": "^4.1.1",
+    "snapsvg": "^0.5.1",
     "swiper": "^11.1.14",
     "vue": "^3.5.11",
     "vue-activity-calendar": "^1.2.2",
@@ -25,9 +29,15 @@
     "vue3typed": "^0.1.5"
   },
   "devDependencies": {
+    "@iconify-json/simple-icons": "^1.2.10",
+    "@iconify-json/solar": "^1.2.1",
     "@vitejs/plugin-vue": "^5.1.4",
+    "autoprefixer": "^10.4.20",
     "less": "^4.2.0",
+    "postcss": "^8.4.47",
     "sass": "^1.79.5",
+    "tailwindcss": "^3.4.14",
+    "unplugin-icons": "^0.19.3",
     "vite": "^5.4.8"
   }
 }
