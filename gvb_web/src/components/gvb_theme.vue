@@ -5,7 +5,7 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import {onMounted,nextTick} from "vue";
+
 
 import {useAppStore} from "../stores/app";
 import {useStore} from "@/stores/store"

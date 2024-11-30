@@ -24,6 +24,7 @@
         </span>
         <gvb_user_info isAvatar v-else></gvb_user_info>
         <gvb_theme></gvb_theme>
+        <gvb_weather></gvb_weather>
       </div>
     </div>
   </div>
@@ -35,11 +36,12 @@ import gvb_user_info from "@/components/gvb_user_info.vue";
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
 import { useMenuStore } from "@/stores/menus";
+import gvb_weather from "@/components/gvb_weather.vue";
 
 
 let menuStore = useMenuStore();
 
-let menuList = ref([{ id: 1, title: "首页", path: "/" }]);
+
 
 let userStore = useUserStore();
 
@@ -125,7 +127,7 @@ onMounted(() => {
       }
     }
     .right {
-      width: 20%;
+      width: 26%;
       display: flex;
       justify-content: space-evenly;
       align-items: center;

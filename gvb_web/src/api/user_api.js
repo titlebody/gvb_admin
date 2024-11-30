@@ -43,3 +43,8 @@ export const userBindEmail = (data) => {
         withCredentials: true
     })
 }
+
+// 退出登录
+export const userLogout = () => {
+    return http.post('/logout')
+}

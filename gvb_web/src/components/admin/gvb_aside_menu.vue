@@ -20,9 +20,12 @@
 </template>
 
 <script setup>
-import { reactive, h,watch } from "vue";
-import { useRoute } from "vue-router";
+import { reactive, h, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "@/stores/store";
 
+// 按需引入 Ant Design Vue 组件
+import { Button, Menu } from 'ant-design-vue';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -32,15 +35,16 @@ import {
   FileImageOutlined,
   UsergroupDeleteOutlined
 } from "@ant-design/icons-vue";
-let route = useRoute();
 
+let route = useRoute();
 const state = reactive({
   collapsed: false,
   selectedKeys: [route.name],
 });
+
 const items = reactive([
   {
-    key: "home", //路由名称
+    key: "home",
     icon: () => h(PieChartOutlined),
     label: "首页",
     title: "首页",
@@ -110,6 +114,12 @@ const items = reactive([
         title: "广告管理",
         path: "adverts_list",
       },
+      {
+        key: "menus_list",
+        label: "菜单管理",
+        title: "菜单管理",
+        path: "menus_list",
+      },
     ],
   },
   {
@@ -131,18 +141,15 @@ const items = reactive([
 const toggleCollapsed = () => {
   state.collapsed = !state.collapsed;
 };
-import { useRouter } from "vue-router";
-import { useStore } from "@/stores/store";
+
 let router = useRouter();
 let store = useStore();
 
 function goto({ item }) {
-  // 加入到useStore.tabs中
-  store.addTabs(item)
+  store.addTabs(item);
   router.push({ name: item.path });
 }
 
-// 监听路由变化对selectedKeys从新赋值route.name
 watch(
   () => route.name,
   (newName) => {
@@ -152,7 +159,6 @@ watch(
   },
   { immediate: true }
 );
-
 </script>
 
 <style lang="scss">

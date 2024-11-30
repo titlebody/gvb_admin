@@ -1,8 +1,9 @@
 <script setup>
 import { useUserStore } from "./stores/user";
-import APlayer from "@/components/APlayer.vue";
+// import APlayer from "@/components/APlayer.vue";
 import { useAppStore } from "@/stores/app.js";
 import { useStore } from "./stores/store";
+
 
 
 const app = useAppStore();
@@ -16,11 +17,10 @@ user.loadUserInfo();
 </script>
 
 <template>
-<weather></weather>
   <router-view></router-view>
   <a-config-provider :theme="app.themeConfig">
   </a-config-provider>
-  <APlayer></APlayer>
+  <!-- <APlayer></APlayer> -->
 </template>
 
 <style lang="scss">

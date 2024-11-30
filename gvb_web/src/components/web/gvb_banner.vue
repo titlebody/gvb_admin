@@ -5,28 +5,6 @@
       <div class="slogan">
         <template v-if="props.isArticle">
           <div>{{ data.abstract }}</div>
-          <br />
-          <div>
-            <i class="fa fa-calendar"></i> 发布时间 :&nbsp{{
-              formatTime(object.created_at)
-            }}
-            &nbsp <i class="fa fa-folder-o"></i> 分类 ：<a-tag
-              color="#2db7f5"
-              >{{ object.category }}</a-tag
-            >
-            &nbsp<i class="fa fa-tag"></i> 标签 :
-            <a-tag
-              :bordered="false"
-              v-for="tag in object.tags"
-              :key="tag"
-              color="processing"
-              >{{ tag }}</a-tag
-            >&nbsp <i class="fa fa-thumbs-o-up"></i> 点赞 ：{{
-              object.digg_count
-            }}
-            &nbsp<br />
-            <i class="fa fa-eye"></i>浏览量：{{ object.look_count }}
-          </div>
         </template>
         <template v-else>
           <vuetyped
@@ -124,7 +102,6 @@ async function getData() {
       path: props.url,
     },
   ];
-  console.log("Data initialized:", data);
 }
 
 getData();

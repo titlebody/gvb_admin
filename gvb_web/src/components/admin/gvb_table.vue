@@ -1,6 +1,6 @@
 <template>
   <div class="gvb_container">
-    <div class="gvb_search">
+    <div class="gvb_search" v-if="props.like_title">
       <a-input-search
         v-model:value.trim="page.key"
         :placeholder="props.like_title"
@@ -68,6 +68,16 @@
                 />
               </template>
             </template>
+            <template v-if="column.key==='banners'">
+              <a-image
+                :width="200"
+                :src="'/'+record.banners[0]?.path"
+              />
+            </template>
+            <template v-if="column.key==='abstract'">
+              {{ record.abstract }}
+
+            </template>
             <template v-if="column.key === 'created_at'">
               {{ formatTime(record.created_at) }}
             </template>
@@ -133,31 +143,31 @@ import { baseListApi, baseDeleteApi } from "@/api/base_api";
 let emit = defineEmits(["delete"]);
 
 const props = defineProps({
-  columns: {
+  columns: {   //td名称
     type: Array,
     default: [],
   },
-  baseUrl: {
+  baseUrl: {   // 获取数据地址
     type: String,
     default: "",
   },
-  isDel: {
+  isDel: {   //操作删除按钮
     type: Boolean,
     default: false,
   },
-  isDels: {
+  isDels: {   //批量删除
     type: Boolean,
     default: false,
   },
-  like_title: {
+  like_title: {   //搜索框内容
     type: String,
     default: "",
   },
-  page_size: {
+  page_size: {   // 分页
     type: Number,
     default: 6,
   },
-  defaultDelFun: {
+  defaultDelFun: {   //开启删除功能
     type: Boolean,
     default: false,
   },
@@ -183,10 +193,17 @@ const data = reactive({
 let getdata = async () => {
   data.spinning = true;
   await baseListApi(props.baseUrl, page).then((res) => {
-    data.list = res.data.list;
-    data.count = res.data.count;
+    if(res.data.list){
+      data.list = res.data.list;
+      data.count = res.data.count;
+      data.spinning = false;
+      return
+    }
+    data.list = res.data;
     data.spinning = false;
+
   });
+  
 };
 
 getdata();
@@ -220,7 +237,6 @@ let deleteUser = async () => {
 };
 // 删除单个
 let deluser = async (id) => {
-  console.log(props.defaultDelFun,props.baseUrl)
   if (props.defaultDelFun) {
     let res = await baseDeleteApi(props.baseUrl, [id]);
     if (res.code) {

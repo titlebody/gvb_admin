@@ -1,13 +1,13 @@
 <script setup>
-import SimpleIconsTencentqq from '~icons/simple-icons/tencentqq';
-import SimpleIconsWechat from '~icons/simple-icons/wechat';
-import SimpleIconsBilibili from '~icons/simple-icons/bilibili';
-import SimpleIconsGithub from '~icons/simple-icons/github';
+import SimpleIconsTencentqq from "~icons/simple-icons/tencentqq";
+import SimpleIconsWechat from "~icons/simple-icons/wechat";
+import SimpleIconsBilibili from "~icons/simple-icons/bilibili";
+import SimpleIconsGithub from "~icons/simple-icons/github";
 </script>
 
 <template>
   <a-card class="overflow-hidden">
-    <div data-state="#about" >
+    <div data-state="#about">
       <div class="card-header">
         <div
           class="card-cover"
@@ -32,18 +32,46 @@ import SimpleIconsGithub from '~icons/simple-icons/github';
             </p>
           </div>
           <div class="card-social">
-            <a>
-              <SimpleIconsTencentqq class=" w-[1.8rem] h-[1.8rem] svg"></SimpleIconsTencentqq>
+            <a-popover>
+              <template #content>
+                <img
+                  src="@/assets/img/qq.jpg"
+                  alt=""
+                  class="w-[7rem] h-[11rem]"
+                />
+              </template>
+              <a>
+                <SimpleIconsTencentqq
+                  class="w-[1.8rem] h-[1.8rem] svg"
+                ></SimpleIconsTencentqq>
+              </a>
+            </a-popover>
+
+            <a-popover>
+              <template #content>
+                <img
+                  src="@/assets/img/weixin.jpg"
+                  alt=""
+                  class="w-[7rem] h-[9rem]"
+                />
+              </template>
+              <a>
+                <SimpleIconsWechat
+                  class="w-[1.8rem] h-[1.8rem] svg"
+                ></SimpleIconsWechat>
+              </a>
+            </a-popover>
+
+            <a href="https://b23.tv/pZVaxTz">
+              <SimpleIconsBilibili
+                class="w-[1.8rem] h-[1.8rem] svg"
+              ></SimpleIconsBilibili>
             </a>
-            <a>
-              <SimpleIconsWechat  class=" w-[1.8rem] h-[1.8rem] svg"></SimpleIconsWechat>
+            <a href="https://github.com/titlebody">
+              <SimpleIconsGithub
+                class="w-[1.8rem] h-[1.8rem] svg"
+              ></SimpleIconsGithub>
             </a>
-           <a>
-             <SimpleIconsBilibili  class=" w-[1.8rem] h-[1.8rem] svg"></SimpleIconsBilibili>
-           </a>
-          <a>
-            <SimpleIconsGithub class=" w-[1.8rem] h-[1.8rem] svg"></SimpleIconsGithub>
-          </a>
           </div>
         </div>
       </div>

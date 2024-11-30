@@ -38,15 +38,15 @@
         </a-form-item>
         <a-form-item label="文章封面" name="banner_path">
           <a-upload
-          v-model:file-list="ModeData.fileList"
-          action="/api/images"
-          list-type="picture-card"
-          name="images"
-          multiple
-          @change=handleChange
-        >
-          <plus-outlined />
-        </a-upload>
+            v-model:file-list="ModeData.fileList"
+            action="/api/images"
+            list-type="picture-card"
+            name="images"
+            multiple
+            @change="handleChange"
+          >
+            <plus-outlined />
+          </a-upload>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -63,17 +63,21 @@
         </div>
       </a-form-item>
     </a-form>
-    <MdEditor v-model="data.content" class="md-editor"></MdEditor>
+    <LazyMdEditor v-if="showEditor" v-model="data.content" class="md-editor"></LazyMdEditor>
   </a-card>
 </template>
-    
-    <script setup>
-import { reactive, ref } from "vue";
-import { MdEditor } from "md-editor-v3";
+
+<script setup>
+import { reactive, ref, defineAsyncComponent } from "vue";
 import "md-editor-v3/lib/style.css";
 import { PlusOutlined } from "@ant-design/icons-vue";
-import {addArticle} from "@/api/article_api"
+import { addArticle } from "@/api/article_api";
 import { message } from 'ant-design-vue';
+
+// 懒加载 MdEditor
+const LazyMdEditor = defineAsyncComponent(() => import('md-editor-v3').then(module => module.MdEditor));
+
+let showEditor = ref(false);
 
 let data = reactive({
   title: "",
@@ -86,7 +90,7 @@ let data = reactive({
 
 let ModeData = reactive({
   open: false,
-  fileList:[]
+  fileList: []
 });
 
 // 编辑校验规则
@@ -103,26 +107,20 @@ let uprules = {
   },
 };
 
-//取消添加
-const showModal = () => {
-  ModeData.open = true;
-};
-
 // 确认添加
-const handleOk = async() => {
-  let res=await addArticle(data)
-  console.log(res)
-  if(res.code){
-    message.error(res.data)
-  }else{
-    message.success(res.msg)
+const handleOk = async () => {
+  let res = await addArticle(data);
+  console.log(res);
+  if (res.code) {
+    message.error(res.data);
+  } else {
+    message.success(res.msg);
   }
 
-  ModeData.open=false
+  ModeData.open = false;
 };
 
 // 标签列表
-
 let tagList = reactive([
   { value: "Java", label: "Java" },
   { value: "JavaScript", label: "JavaScript" },
@@ -141,20 +139,18 @@ let selectOptions = ref([
   "部署",
 ]);
 
-
-
 let addFun = () => {
   ModeData.open = true;
+  showEditor.value = true; // 显示编辑器
 };
 
-
-let handleChange=(e)=>{
-  if(e.file.status=="done"){
-    data.banner_path=e.file.response.data[0].file_name
+let handleChange = (e) => {
+  if (e.file.status == "done") {
+    data.banner_path = e.file.response.data[0].file_name;
   }
-}
+};
 </script>
-    
+
 <style lang="scss">
 .input-button-container {
   display: flex;
@@ -169,3 +165,6 @@ let handleChange=(e)=>{
   height: 67vh;
 }
 </style>
+
+
+

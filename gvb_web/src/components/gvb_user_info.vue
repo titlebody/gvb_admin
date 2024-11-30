@@ -25,6 +25,7 @@
 import { reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import { userLogout } from "@/api/user_api";
 
 let router = useRouter();
 let route = useRoute();
@@ -39,8 +40,10 @@ let props = defineProps({
     default: false,
   },
 });
-function onClick({ key }) {
+async function onClick({ key }) {
   if (key == "logout") {
+    let res=await userLogout()
+    console.log(res)
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     userStore.quitUser()

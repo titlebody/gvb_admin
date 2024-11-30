@@ -1,40 +1,58 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
+import { login } from "@/api/admin/login/index";
+import { ParseToken } from "@/utils/jwt";
+import { useUserStore } from "@/stores/user";
+import { useRouter, useRoute } from "vue-router";
 
 let data = reactive({
   user_name: "",
   password: "",
 });
-import { message } from "ant-design-vue";
-import { login } from "@/api/admin/login/index";
-import { ParseToken } from "@/utils/jwt";
-import { useUserStore } from "@/stores/user";
-import { useRouter,useRoute } from "vue-router";
 
 let userStore = useUserStore();
 let router = useRouter();
 let route = useRoute();
+
+// 动态导入 ant-design-vue 的 message 组件
+let message = null;
+onMounted(async () => {
+  const { message: msg } = await import("ant-design-vue");
+  message = msg;
+});
+
 async function loginsubmit() {
   if (data.user_name.trim() == "" || data.password.trim() == "") {
-    message.error("用户名或密码不能为空");
+    if (message) {
+      message.error("用户名或密码不能为空");
+    }
     return;
   }
+
   await login(data).then((res) => {
     if (res.code) {
-      message.error("用户登录" + res.msg);
+      if (message) {
+        message.error("用户登录" + res.msg);
+      }
       return;
     }
-    message.success("用户登录" + res.msg);
+
+    if (message) {
+      message.success("用户登录" + res.msg);
+    }
+
     localStorage.setItem("token", res.data.token);
     let userInfo = ParseToken(res.data.token);
     userStore.setUserInfo(userInfo);
-    const redirect_url=route.query.redirect_url
-    if (redirect_url){
-        router.push(redirect_url)
-        return
+
+    const redirect_url = route.query.redirect_url;
+    if (redirect_url) {
+      router.push(redirect_url);
+      return;
     }
+
     setTimeout(() => {
-        router.push({name:"admin"})
+      router.push({ name: "admin" });
     }, 1000);
   });
 }
@@ -76,7 +94,7 @@ async function loginsubmit() {
 </template>
 <style lang="scss">
 .gvb_login_bg {
-  background: url("https://th.bing.com/th/id/R.969eb56ca1203d812be339fa99058e2e?rik=kqqTjHCLgRryvQ&riu=http%3a%2f%2fimg.netbian.com%2ffile%2f2023%2f0329%2f225846ayBVN.jpg&ehk=MBeqoPDTcE2Gt3qV%2bhS9fIl%2f%2btN5wqQH4IIq%2b6VihGs%3d&risl=&pid=ImgRaw&r=0")
+  background: url("@/assets/img/logo.png")
     50% / cover no-repeat;
   width: 100%;
   height: 100vh;

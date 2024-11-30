@@ -16,7 +16,6 @@ export const getMenuName = () => {
 
 // 根据path获取菜单详情
 export const getMenuPathDetail = (params) => {
-  
   return http.get("/menus/detail", {
     params
   });

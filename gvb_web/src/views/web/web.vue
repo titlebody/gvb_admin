@@ -1,4 +1,5 @@
 <template>
+    <gvb_nav isShow></gvb_nav>
     <router-view></router-view>
     <gvb_footer></gvb_footer>
     <!-- 流星雨 最低层 可点击图层下的元素 -->
@@ -14,6 +15,7 @@ import gvb_footer from "@/components/web/gvb_footer.vue";
 import MeteorShower from "@/components/MeteorShower.vue";
 import {useAppStore} from "@/stores/app";
 import {computed} from "vue";
+import gvb_nav from '@/components/web/gvb_nav.vue';
 const appStore = useAppStore();
 let isShowMeteor = computed(()=>{
   return appStore.darkMode==='dark'

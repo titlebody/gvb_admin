@@ -3,8 +3,8 @@ import axios from "axios";
 
 
 const http = axios.create({
-    baseURL: 'http://47.121.115.146:5001/api',
-    timeout: 2000,
+    baseURL: 'https://www.huchenxi.fun/api',
+    timeout: 5000,
     headers: { 'Content-Type': 'application/json' }
 });
 

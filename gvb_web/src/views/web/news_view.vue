@@ -1,6 +1,5 @@
 <template>
   <div class="web_news">
-    <gvb_nav isShow></gvb_nav>
     <gvb_banner></gvb_banner>
 
     <div class="gvb_center">
@@ -34,7 +33,6 @@
 </template>
 
 <script setup>
-import gvb_nav from "@/components/web/gvb_nav.vue";
 import gvb_banner from "@/components/web/gvb_banner.vue";
 import gvb_hot from "@/components/web/gvb_hot.vue";
 import { useHotStore } from "@/stores/hot";
