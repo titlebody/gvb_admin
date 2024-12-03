@@ -8,93 +8,96 @@
       isArticle
       :object="articleData"
     />
-    <a-affix :offset-top="110" class="absolute top-[620px] right-0 top">
-      <a-card title="目录" class="w-[300px]">
-        <div class="catalog-container">
-          <MdCatalog
-            v-if="articleData.content"
-            :editorId="id"
-            :scrollElement="scrollElement"
-            @item-click="handleItemClick"
-          />
-        </div>
-      </a-card>
-      <a-card class="mt-[20px] custom-padding">
-        <div class="flex justify-around w-[250px]">
-          <i class="iconfont icon-icon text-xl"></i>
-          <i class="iconfont icon-shoucang text-xl"></i>
-          <i class="iconfont icon-huidaodingbu text-xl" @click="scrollToTop" />
-          <i class="iconfont icon-pinglun text-xl"></i>
-        </div>
-      </a-card>
-    </a-affix>
+    <div class="container">
+      <div class="gvb_center mt-[20px]">
+        <div class="web_conter">
+          <a-card class="pt-4">
+            <template #title>
+              <div class="text-center">
+                <h1 class="text-3xl">{{ articleData.title }}</h1>
+                <div class="flex justify-center mt-2">
+                  <div class="flex items-center">
+                    <i class="fa fa-calendar"> 发布时间 : {{ formatTime(articleData.created_at) }}</i>
+                  </div>
+                </div>
+                <div class="mt-2 mb-2">
+                  <i class="fa fa-folder-o mr-1"> 分类 ： <a-tag color="#2db7f5">{{ articleData.category }}</a-tag></i>
+                  <i class="fa fa-tag mr-1"> 标签 : 
+                    <a-tag
+                      :bordered="false"
+                      v-for="tag in articleData.tags"
+                      :key="tag"
+                      color="processing"
+                    >{{ tag }} </a-tag>
+                  </i>
+                  <i class="fa fa-thumbs-o-up mr-1"> 点赞 ：{{ articleData.digg_count }}</i>
+                  <i class="fa fa-eye mr-1"> 浏览量：{{ articleData.look_count }}</i>
+                </div>
+              </div>
+            </template>
+            <MdPreview
+              v-if="text"
+              :editorId="id"
+              :modelValue="text"
+              :theme="appStore.darkMode"
+            />
+          </a-card>
 
-    <div class="gvb_center mt-[20px]">
-      <div class="web_conter">
-        <a-card class="pt-4">
-          <template #title>
-            <div class="text-center">
-              <h1 class="text-3xl">{{ articleData.title }}</h1>
-              <div class="flex justify-center">
-                <div class="flex items-center">
-                  <i class="fa fa-calendar"> 发布时间 : {{ formatTime(articleData.created_at) }}</i>
+          <a-card class="p-[10px]">
+            <div class="border-indigo-300 m-[20px] border">
+              <div class="copyright-info p-[20px]">
+                <div class="item flex items-center w-full">
+                  <div class="lable">文章作者</div>
+                  <div class="value">
+                    <a href="http://www.baidu.com" target="_blank" class="underline">{{ articleData.nick_name }}</a>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-1 mb-2">
-                <i class="fa fa-folder-o mr-1"> 分类 ： <a-tag color="#2db7f5">{{ articleData.category }}</a-tag></i>
-                <i class="fa fa-tag mr-1"> 标签 : 
-                  <a-tag
-                    :bordered="false"
-                    v-for="tag in articleData.tags"
-                    :key="tag"
-                    color="processing"
-                  >{{ tag }} </a-tag>
-                </i>
-                <i class="fa fa-thumbs-o-up mr-1"> 点赞 ：{{ articleData.digg_count }}</i>
-                <i class="fa fa-eye mr-1"> 浏览量：{{ articleData.look_count }}</i>
-              </div>
-            </div>
-          </template>
-          <MdPreview
-            v-if="text"
-            :editorId="id"
-            :modelValue="text"
-            :theme="appStore.darkMode"
-          />
-        </a-card>
-
-        <a-card class="p-[10px]">
-          <div class="border-indigo-300 m-[20px] border">
-            <div class="copyright-info p-[20px]">
-              <div class="item flex items-center w-[100%]">
-                <div class="lable">文章作者</div>
-                <div class="value">
-                  <a href="http://www.baidu.com" target="_blank" class="underline">{{ articleData.nick_name }}</a>
+                <div class="item flex items-center w-full">
+                  <div class="lable">类型</div>
+                  <div class="value">{{ articleData.category }}</div>
                 </div>
-              </div>
-              <div class="item flex items-center w-[100%]">
-                <div class="lable">类型</div>
-                <div class="value">{{ articleData.category }}</div>
-              </div>
-              <div class="item flex items-center w-[100%]">
-                <div class="lable">原创</div>
-                <div class="value">晨曦知道</div>
-              </div>
-              <div class="item flex items-center w-[100%]">
-                <div class="lable">本文链接</div>
-                <div class="value">
-                  <a :href="articleData.link" class="underline" target="_blank">{{ articleData.link }}</a>
+                <div class="item flex items-center w-full">
+                  <div class="lable">原创</div>
+                  <div class="value">晨曦知道</div>
                 </div>
-              </div>
-              <div class="item flex items-center w-[100%]">
-                <div class="lable">声明</div>
-                <div class="value">
-                  此文章版权归 {{ articleData.nick_name }} 所有，如有转载，请注明来自原作者
+                <div class="item flex items-center w-full">
+                  <div class="lable">本文链接</div>
+                  <div class="value">
+                    <a :href="articleData.link" class="underline" target="_blank">{{ articleData.link }}</a>
+                  </div>
+                </div>
+                <div class="item flex items-center w-full">
+                  <div class="lable">声明</div>
+                  <div class="value">
+                    此文章版权归 {{ articleData.nick_name }} 所有，如有转载，请注明来自原作者
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a-card>
+          </a-card>
+        </div>
+      </div>
+      <div class="affix-box">
+        <a-affix :offset-top="130">
+          <a-card title="目录" class="w-full">
+            <div class="catalog-container">
+              <MdCatalog
+                v-if="articleData.content"
+                :editorId="id"
+                :scrollElement="scrollElement"
+                @item-click="handleItemClick"
+              />
+            </div>
+          </a-card>
+          <a-card class="mt-[20px] custom-padding">
+            <div class="flex justify-around w-full">
+              <i class="iconfont icon-icon text-xl"></i>
+              <i class="iconfont icon-shoucang text-xl"></i>
+              <i class="iconfont icon-huidaodingbu text-xl" @click="scrollToTop" />
+              <i class="iconfont icon-pinglun text-xl"></i>
+            </div>
+          </a-card>
+        </a-affix>
       </div>
     </div>
   </div>
@@ -202,6 +205,28 @@ function handleItemClick(targetId) {
 
 <style scoped lang="scss">
 .web_article_item {
+  .container {
+    display: flex;
+    align-items: flex-start; /* 确保两个元素在垂直方向上对齐 */
+    justify-content: center;
+    gap: 20px; /* 设置 a-affix 和 gvb_center 之间的间距 */
+    max-width: 1200px; /* 设置最大宽度 */
+    margin: 0 auto; /* 居中对齐 */
+  }
+
+  .affix-box{
+    width: 260px;
+    margin-top: 20px;
+  }
+  .gvb_center {
+    width: calc(100% - 270px); /* 设置共同的宽度，减去间距的一半 */
+  }
+
+  .affix-box {
+    position: sticky;
+    top: 130px; /* 确保 a-affix 固定在顶部，并且与 gvb_center 顶部间距为 20px */
+  }
+
   .gvb_center {
     .web_conter {
       width: 100%; /* 使用百分比宽度以适应不同屏幕 */
@@ -254,6 +279,3 @@ function handleItemClick(targetId) {
   background: transparent;
 }
 </style>
-
-
-

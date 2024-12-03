@@ -44,7 +44,6 @@
 import { reactive, defineProps } from "vue";
 import { getMenuPathDetail } from "@/api/menu_api";
 import { useRoute } from "vue-router";
-import { formatTime } from "@/utils/date";
 import GvbBolang from "@/components/gvb_bolang.vue";
 
 let route = useRoute();
