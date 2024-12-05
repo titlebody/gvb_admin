@@ -88,15 +88,15 @@ const data = reactive({
   baseUrl: "articles",
   upopen: false, // 修改框
   columns: [
-    { title: "序号", dataIndex: "index", key: "index" },
-    { title: "文章名称", dataIndex: "title", key: "title" },
-    { title: "简介", dataIndex: "abstract", key: "abstract" },
-    { title: "封面", dataIndex: "banner_path", key: "banner_path" },
-    { title: "分类", dataIndex: "category", key: "category" },
-    { title: "标签", dataIndex: "tags", key: "tags" },
-    { title: "发表人", dataIndex: "nick_name", key: "nick_name" },
-    { title: "发布时间", dataIndex: "created_at", key: "created_at" },
-    { title: "操作", dataIndex: "action", key: "action" },
+    { title: "序号", dataIndex: "index", key: "index",width: 50 },
+    { title: "文章名称", dataIndex: "title", key: "title",width: 150 },
+    { title: "简介", dataIndex: "abstract", key: "abstract",width: 200 },
+    { title: "封面", dataIndex: "banner_path", key: "banner_path",width: 180 },
+    { title: "分类", dataIndex: "category", key: "category" ,width: 80},
+    { title: "标签", dataIndex: "tags", key: "tags" ,width: 150},
+    { title: "发表人", dataIndex: "nick_name", key: "nick_name" ,width: 80},
+    { title: "发布时间", dataIndex: "created_at", key: "created_at",width: 150 },
+    { title: "操作", dataIndex: "action", key: "action" ,width: 200},
   ], //表格标题
 });
 
@@ -162,7 +162,6 @@ let selectOptions= ref(["日常","前端","后端","VUE","CSS","UI库","Golang",
 // 修改框打开
 let upModal = (record) => {
   data.upopen = true;
-  console.log(record);
   update.id = record.id;
   update.title = record.title;
   update.abstract = record.abstract;

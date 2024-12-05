@@ -24,7 +24,7 @@ let isShowMeteor = computed(()=>{
 
 // 获取菜单
 const menuStore = useMenuStore();
-menuStore.initMenuNameList();
+menuStore.loadMenuNameList();
 </script>
 
 <style lang="scss">

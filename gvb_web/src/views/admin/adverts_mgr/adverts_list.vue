@@ -53,12 +53,12 @@ import { message } from 'ant-design-vue';
 let data=reactive({
     baseUrl:"adverts",
     columns:[
-        { title: "序号", dataIndex: "index", key: "index" },
-        { title: "广告名称", dataIndex: "title", key: "title" },
-        { title: "链接", dataIndex: "href", key: "href" },
-        { title: "封面", dataIndex: "images", key: "images" },
-        { title: "是否显示", dataIndex: "is_show", key: "is_show" },
-        { title: "操作", dataIndex: "action", key: "action" },
+        { title: "序号", dataIndex: "index", key: "index" ,width: 60},
+        { title: "广告名称", dataIndex: "title", key: "title",width: 140 },
+        { title: "链接", dataIndex: "href", key: "href" ,width: 200},
+        { title: "封面", dataIndex: "images", key: "images",width:200 },
+        { title: "是否显示", dataIndex: "is_show", key: "is_show",width: 80 },
+        { title: "操作", dataIndex: "action", key: "action" ,width: 80},
     ],
     open:false
 })

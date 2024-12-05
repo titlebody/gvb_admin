@@ -54,8 +54,7 @@
 // digg_count string 文章点赞量
 // collects_count string 文章收藏量
 
-import { ref, computed } from "vue";
-import { defineProps } from "vue";
+
 import { formatTime } from "@/utils/date";
 import { useRouter } from "vue-router";
 

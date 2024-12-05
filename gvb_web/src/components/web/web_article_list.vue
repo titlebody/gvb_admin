@@ -10,8 +10,8 @@
     </template>
   </a-card>
   <div class="article-list">
-    <template v-if="dataList.length>0">
-      <web_article_item v-for="item in dataList" :key="item.id" :data="item" class="web_article_item"/>
+    <template v-if="store.articleLists.length>0">
+      <web_article_item v-for="item in store.articleLists" :key="item.id" :data="item" class="web_article_item"/>
     </template>
     <template v-else>
       <a-empty description="暂无数据" class="bg-white m-0 h-[500px] flex items-center justify-center"/>
@@ -24,20 +24,22 @@
         v-model:current="page.page"
         v-model:page-size="page.limit"
         :total="data.count"
-        :show-total="(total) => `总共 ${total} 个`"
+        :show-total="() => `总共 ${store.articleLists.length} 个`"
       />
     </div>
 </template>
 
 <script setup>
-import { ref ,reactive} from "vue";
+import { reactive} from "vue";
 import web_article_item from "./web_article_item.vue";
 import {articleList} from "@/api/article_api"
+import {articleStore} from "@/stores/article.js"
 
 
 
 // 文章列表
-let dataList=ref([])
+let store=articleStore()
+
 
 
 // 分页
@@ -56,8 +58,8 @@ async function getArticleList(){
     limit:page.limit,
     key:page.key
   })
-  
-  dataList.value=res.data.list
+
+  store.articleLists=res.data.list
   data.count=res.data.count
 }
 

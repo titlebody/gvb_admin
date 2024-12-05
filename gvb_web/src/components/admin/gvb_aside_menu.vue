@@ -24,8 +24,7 @@ import { reactive, h, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "@/stores/store";
 
-// 按需引入 Ant Design Vue 组件
-import { Button, Menu } from 'ant-design-vue';
+
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -119,6 +118,12 @@ const items = reactive([
         label: "菜单管理",
         title: "菜单管理",
         path: "menus_list",
+      },
+      {
+        key: "tabs_list",
+        label: "标签管理",
+        title: "标签管理",
+        path: "tabs_list",
       },
     ],
   },

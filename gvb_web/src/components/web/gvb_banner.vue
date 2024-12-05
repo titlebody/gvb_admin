@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { reactive, defineProps } from "vue";
+import { reactive } from "vue";
 import { getMenuPathDetail } from "@/api/menu_api";
 import { useRoute } from "vue-router";
 import GvbBolang from "@/components/gvb_bolang.vue";

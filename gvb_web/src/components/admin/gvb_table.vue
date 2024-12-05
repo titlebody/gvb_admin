@@ -40,7 +40,7 @@
               <template v-if="record.images.indexOf('http') !== -1">
                 <img
                   :src="record.images"
-                  style="border-radius: 10px; width:60px"
+                  style="border-radius: 10px; width:180px"
                 />
               </template>
               <template v-else>
@@ -58,13 +58,13 @@
               <template v-if="record.banner_path.indexOf('http') !== -1">
                 <img
                   :src="record.banner_path"
-                  style="border-radius: 10px; width:60px"
+                  style="border-radius: 10px; width: 180px"
                 />
               </template>
               <template v-else>
                 <img
                   :src="'/' + record.banner_path"
-                  style="border-radius: 10px; width:60px"
+                  style="border-radius: 10px;width: 180px"
                 />
               </template>
             </template>
@@ -74,9 +74,8 @@
                 :src="'/'+record.banners[0]?.path"
               />
             </template>
-            <template v-if="column.key==='abstract'">
-              {{ record.abstract }}
-
+            <template v-if="column.key==='abstract'" >
+              <span class="ellipsis">{{ record.abstract }}</span>
             </template>
             <template v-if="column.key === 'created_at'">
               {{ formatTime(record.created_at) }}
@@ -201,7 +200,7 @@ let getdata = async () => {
     }
     data.list = res.data;
     data.spinning = false;
-
+    data.count = res.data.length;
   });
   
 };
@@ -240,7 +239,7 @@ let deluser = async (id) => {
   if (props.defaultDelFun) {
     let res = await baseDeleteApi(props.baseUrl, [id]);
     if (res.code) {
-      message.error(res.msg);
+      message.error(res.data);
       return;
     }
     getdata();
@@ -299,5 +298,13 @@ defineExpose({
   .gvb_peage {
     text-align: center;
   }
+}
+
+.ellipsis {
+  white-space: nowrap; /* 防止换行 */
+  overflow: hidden; /* 隐藏溢出内容 */
+  text-overflow: ellipsis; /* 显示省略号 */
+  display: inline-block; /* 确保宽度生效 */
+  width: 200px;
 }
 </style>

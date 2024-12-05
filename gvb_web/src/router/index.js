@@ -138,6 +138,11 @@ const router = createRouter({
                 keywords: "菜单管理, 菜单, 管理, 编辑, 胡晨曦, 晨曦, 胡晨曦的博客"
               }
             },
+            {
+              path: "tabs_list",
+              name: "tabs_list",
+              component: () => import("@/views/admin/tags_mgr/tags_list.vue"),
+            }
           ]
         },
         {

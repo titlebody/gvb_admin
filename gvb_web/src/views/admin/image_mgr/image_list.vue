@@ -149,7 +149,7 @@ async function updateOk() {
     }
     message.success(res.msg);
     data.open = false;
-    gvbTable.value.getdata();
+    await gvbTable.value.getdata();
   } catch (error) {
     console.log(error);
   }

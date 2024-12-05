@@ -12,20 +12,12 @@ export const useMenuStore = defineStore('menu', () => {
     }
 
 
-    function initMenuNameList(){
-        let locMenu=JSON.parse(localStorage.getItem("menu"))
-        if(!locMenu){
-            loadMenuNameList()
-            return
-        }
-        menuNameList.value=locMenu.menuNameList
-    }
 
     
 
 
 
 
-    return { menuNameList,initMenuNameList }
+    return { menuNameList,loadMenuNameList }
 
 },{ persist: true })
